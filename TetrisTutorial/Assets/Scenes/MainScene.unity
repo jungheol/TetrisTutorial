@@ -744,12 +744,13 @@ MonoBehaviour:
   - tetromino: 3
     tile: {fileID: 11400000, guid: 5e69d5f680e004067b8b14b7d7f9e3d5, type: 2}
   - tetromino: 4
-    tile: {fileID: 11400000, guid: 6818fe27d496246948098f0b5c686b44, type: 2}
+    tile: {fileID: 11400000, guid: 9ed3aa755743e497d9bd12b14d7cee2b, type: 2}
   - tetromino: 5
     tile: {fileID: 11400000, guid: 9ee66e68fae9e476eb54445e3d17dcdf, type: 2}
   - tetromino: 6
     tile: {fileID: 11400000, guid: 0fd8530a7fd74432f8efccd01e1e4c3c, type: 2}
   spawnPosition: {x: -1, y: 8, z: 0}
+  boardSize: {x: 10, y: 20}
 --- !u!114 &1496007591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,6 +763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bbdfbd304407491a938007eabe3a6df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationIndex: 0
 --- !u!1 &1519233921
 GameObject:
   m_ObjectHideFlags: 0
