@@ -29,6 +29,10 @@ public class Piece : MonoBehaviour {
 		} else if (Input.GetKeyDown(KeyCode.D)) {
 			Move(Vector2Int.right);
 		}
+
+		if (Input.GetKeyDown(KeyCode.S)) {
+			Move(Vector2Int.down);
+		}
 		
 		this.board.Set(this);
 	}
