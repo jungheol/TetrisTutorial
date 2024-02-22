@@ -53,8 +53,22 @@ public class Piece : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			HardDrop();
 		}
+
+		if (Time.time >= this.stepTime) {
+			Step();
+		}
 		
 		this.board.Set(this);
+	}
+
+	private void Step() {
+		this.stepTime = Time.time + this.stepDelay;
+
+		Move(Vector2Int.down);
+
+		if (this.lockTime >= this.lockDelay) {
+			Lock();
+		}
 	}
 
 	private void HardDrop() {
