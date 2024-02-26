@@ -36,7 +36,19 @@ public class Board : MonoBehaviour {
 		TetrominoData data = this.tetrominoes[ran];
 		
 		this.activePiece.Init(this, this.spawnPosition, data);
+
+		if (IsValidPos(this.activePiece, this.spawnPosition)) {
+			Set(this.activePiece);
+		} else {
+			GameOver();
+		}
 		Set(this.activePiece);
+	}
+
+	private void GameOver() {
+		this.tilemap.ClearAllTiles();
+		
+		// GameOver UI 등 구현
 	}
 
 	public void Set(Piece piece) {
