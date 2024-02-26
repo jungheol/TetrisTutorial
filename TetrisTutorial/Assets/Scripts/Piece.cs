@@ -7,12 +7,20 @@ public class Piece : MonoBehaviour {
 	public Vector3Int[] cells { get; private set; }
 	public Vector3Int position { get; private set; }
 	public int rotationIndex;
-	
+
+	public float stepDelay = 1f;
+	public float lockDelay = 0.5f;
+
+	private float stepTime;
+	private float lockTime;
+
 	public void Init(Board board, Vector3Int position, TetrominoData data) {
 		this.board = board;
 		this.position = position;
 		this.data = data;
 		this.rotationIndex = 0;
+		this.stepTime = Time.time + this.stepDelay;
+		this.lockTime = 0f;
 
 		if (this.cells == null) {
 			this.cells = new Vector3Int[data.cells.Length];
@@ -25,6 +33,8 @@ public class Piece : MonoBehaviour {
 
 	private void Update() {
 		this.board.Clear(this);
+
+		this.lockTime += Time.deltaTime;
 
 		if (Input.GetKeyDown(KeyCode.W)) {
 			Rotate();
@@ -43,14 +53,35 @@ public class Piece : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			HardDrop();
 		}
+
+		if (Time.time >= this.stepTime) {
+			Step();
+		}
 		
 		this.board.Set(this);
+	}
+
+	private void Step() {
+		this.stepTime = Time.time + this.stepDelay;
+
+		Move(Vector2Int.down);
+
+		if (this.lockTime >= this.lockDelay) {
+			Lock();
+		}
 	}
 
 	private void HardDrop() {
 		while (Move(Vector2Int.down)) {
 			continue;
 		}
+		
+		Lock();
+	}
+
+	private void Lock() {
+		this.board.Set(this);
+		this.board.SpawnPiece();
 	}
 
 	private bool Move(Vector2Int translation) {
@@ -62,6 +93,7 @@ public class Piece : MonoBehaviour {
 
 		if (valid) {
 			this.position = newPosition;
+			this.lockTime = 0f;
 		}
 
 		return valid;
